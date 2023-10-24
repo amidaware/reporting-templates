@@ -9,7 +9,7 @@ def main():
     index = []
     for file in files:
         base_url = "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/"
-        temp = {"url": base_url + parse.quote(file)}
+        temp = {"name": file, "download_url": base_url + parse.quote(file)}
         index.append(temp)
 
     with Path("index.json").open("w") as fp:
