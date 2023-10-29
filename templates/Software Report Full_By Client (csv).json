@@ -1,1 +1,14 @@
-{"base_template":null,"template":{"name":"Software Report Full_By Client (csv)","template_css":"","template_md":"Device Name, Software Name, Version, Publisher\r\n{% for record in data_sources.agentSoftware %}{% for software in record.software %}{{ record.agent__hostname or 'N/A' }}, {{ software.name or 'N/A' }}, {{ software.version or 'N/A' }}, {{ software.publisher or 'N/A' }}\r\n{% endfor %}{% endfor %}","type":"plaintext","depends_on":["client"],"template_variables":"data_sources:\r\n  agentSoftware:\r\n    model: installedsoftware\r\n    filter:\r\n      agent__site__client__id: \"{{client.id}}\"\r\n    only:\r\n      - software\r\n      - agent__hostname\r\n      - agent__site__name\r\n      - agent__site__client"},"assets":[]}
+{
+    "base_template": null,
+    "template": {
+        "name": "Software Report Full_By Client (csv)",
+        "template_css": "",
+        "template_md": "Device Name, Software Name, Version, Publisher\r\n{% for record in data_sources.agentSoftware %}{% for software in record.software %}{{ record.agent__hostname or 'N/A' }}, {{ software.name or 'N/A' }}, {{ software.version or 'N/A' }}, {{ software.publisher or 'N/A' }}\r\n{% endfor %}{% endfor %}",
+        "type": "plaintext",
+        "depends_on": [
+            "client"
+        ],
+        "template_variables": "data_sources:\r\n  agentSoftware:\r\n    model: installedsoftware\r\n    filter:\r\n      agent__site__client__id: \"{{client.id}}\"\r\n    only:\r\n      - software\r\n      - agent__hostname\r\n      - agent__site__name\r\n      - agent__site__client"
+    },
+    "assets": []
+}

@@ -1,1 +1,14 @@
-{"base_template":null,"template":{"name":"Windows Update_Last Install Date (csv)","template_css":"","template_md":"Device Name, User, Device OS, When Updates were last installed\r\n{% for item in data_sources.agents %}{{item.hostname if item.hostname else 'N/A'}},{{item.last_logged_in_user if item.last_logged_in_user else 'N/A'}},{{item.operating_system|replace(\",\", \"\") if item.operating_system else 'N/A'}},{{item.patches_last_installed if item.patches_last_installed else 'N/A'}},\r\n{% endfor %}","type":"plaintext","depends_on":["client"],"template_variables":"data_sources:\n  agents:\n    filter:\n      site__client_id: '{{client.id}}'\n    model: agent\n    only:\n    - hostname\n    - last_logged_in_user\n    - operating_system\n    - patches_last_installed\n"},"assets":[]}
+{
+    "base_template": null,
+    "template": {
+        "name": "Windows Update_Last Install Date (csv)",
+        "template_css": "",
+        "template_md": "Device Name, User, Device OS, When Updates were last installed\r\n{% for item in data_sources.agents %}{{item.hostname if item.hostname else 'N/A'}},{{item.last_logged_in_user if item.last_logged_in_user else 'N/A'}},{{item.operating_system|replace(\",\", \"\") if item.operating_system else 'N/A'}},{{item.patches_last_installed if item.patches_last_installed else 'N/A'}},\r\n{% endfor %}",
+        "type": "plaintext",
+        "depends_on": [
+            "client"
+        ],
+        "template_variables": "data_sources:\n  agents:\n    filter:\n      site__client_id: '{{client.id}}'\n    model: agent\n    only:\n    - hostname\n    - last_logged_in_user\n    - operating_system\n    - patches_last_installed\n"
+    },
+    "assets": []
+}

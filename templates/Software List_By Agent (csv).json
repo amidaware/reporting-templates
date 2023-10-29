@@ -1,1 +1,15 @@
-{"base_template":null,"template":{"name":"Software List_By Agent (csv)","template_css":"","template_md":"Client, Agent, Software Name, Version, Publisher\r\n<!-- loop through each agent returns | loop through software and only return the software we are looking for | only add row if software name matches -->\r\n{% for record in data_sources.agentSoftware %}{% for software in record.software %}{% if software.name.startswith(software_name) %}{% if software.version != target_version %}{% endif %}{{ record.agent__site__client__name }}, {{ record.agent__hostname }}, {{ software.name }}, {{ software.version }}, {{ software.publisher }}\r\n{% endif %}{% endfor %}{% endfor %}","type":"plaintext","depends_on":["software_name","target_version"],"template_variables":"data_sources:\n  agentSoftware:\n    model: installedsoftware\n    only:\n    - software\n    - agent__hostname\n    - agent__site__client__name\n    select_related:\n    - agent\n    - agent__site__client\n  agents:\n    model: agent\n    only:\n    - hostname\n    - operating_system\n    - plat\n  hasUpdate:\n    count: true\n    filter:\n      software__contains:\n      - version: '{{target_version}}'\n      - name: '{{software_name}}'\n    model: installedsoftware\n"},"assets":[]}
+{
+    "base_template": null,
+    "template": {
+        "name": "Software List_By Agent (csv)",
+        "template_css": "",
+        "template_md": "Client, Agent, Software Name, Version, Publisher\r\n<!-- loop through each agent returns | loop through software and only return the software we are looking for | only add row if software name matches -->\r\n{% for record in data_sources.agentSoftware %}{% for software in record.software %}{% if software.name.startswith(software_name) %}{% if software.version != target_version %}{% endif %}{{ record.agent__site__client__name }}, {{ record.agent__hostname }}, {{ software.name }}, {{ software.version }}, {{ software.publisher }}\r\n{% endif %}{% endfor %}{% endfor %}",
+        "type": "plaintext",
+        "depends_on": [
+            "software_name",
+            "target_version"
+        ],
+        "template_variables": "data_sources:\n  agentSoftware:\n    model: installedsoftware\n    only:\n    - software\n    - agent__hostname\n    - agent__site__client__name\n    select_related:\n    - agent\n    - agent__site__client\n  agents:\n    model: agent\n    only:\n    - hostname\n    - operating_system\n    - plat\n  hasUpdate:\n    count: true\n    filter:\n      software__contains:\n      - version: '{{target_version}}'\n      - name: '{{software_name}}'\n    model: installedsoftware\n"
+    },
+    "assets": []
+}

@@ -1,1 +1,17 @@
-{"base_template":{"name":"Bootstrap Base","html":"<!doctype html>\n<html lang=\"en\">\n    <head>\n        <style>\n            {{css}}\n        </style>\n        <link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC\" crossorigin=\"anonymous\">\n    </head>\n    <body>\n        {% block content %}{% endblock %}\n        {% block header %}{% endblock %}\n    </body>\n</html>"},"template":{"name":"Software Report Full_By Client","template_css":"","template_md":"{% block content %}\r\n# Software Audit Report - {{client.name}}\r\n\r\n<table>\r\n    <thead>\r\n        <tr>\r\n           <th>Device Name</th>\r\n           <th>Software Name</th>\r\n            <th>Version</th>\r\n            <th>Publisher</th>\r\n        </tr>\r\n    </thead>\r\n    <tbody>\r\n        {% for record in data_sources.agentSoftware %}\r\n            {% for software in record.software %}\r\n                <tr>\r\n                    <td>{{ record.agent__hostname or 'N/A' }}</td>\r\n                    <td>{{ software.name or 'N/A' }}</td>\r\n                    <td>{{ software.version or 'N/A' }}</td>\r\n                    <td>{{ software.publisher or 'N/A' }}</td>\r\n                </tr>\r\n            {% endfor %}\r\n        {% endfor %}\r\n    </tbody>\r\n</table>\r\n\r\n{% endblock %}","type":"markdown","depends_on":["client"],"template_variables":"data_sources:\n  agentSoftware:\n    model: installedsoftware\n    filter:\n      agent__site__client__id: \"{{client.id}}\"\n    only:\n      - software\n      - agent__hostname\n      - agent__site__name\n      - agent__site__client"},"assets":[]}
+{
+    "base_template": {
+        "name": "Bootstrap Base",
+        "html": "<!doctype html>\n<html lang=\"en\">\n    <head>\n        <style>\n            {{css}}\n        </style>\n        <link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC\" crossorigin=\"anonymous\">\n    </head>\n    <body>\n        {% block content %}{% endblock %}\n        {% block header %}{% endblock %}\n    </body>\n</html>"
+    },
+    "template": {
+        "name": "Software Report Full_By Client",
+        "template_css": "",
+        "template_md": "{% block content %}\r\n# Software Audit Report - {{client.name}}\r\n\r\n<table>\r\n    <thead>\r\n        <tr>\r\n           <th>Device Name</th>\r\n           <th>Software Name</th>\r\n            <th>Version</th>\r\n            <th>Publisher</th>\r\n        </tr>\r\n    </thead>\r\n    <tbody>\r\n        {% for record in data_sources.agentSoftware %}\r\n            {% for software in record.software %}\r\n                <tr>\r\n                    <td>{{ record.agent__hostname or 'N/A' }}</td>\r\n                    <td>{{ software.name or 'N/A' }}</td>\r\n                    <td>{{ software.version or 'N/A' }}</td>\r\n                    <td>{{ software.publisher or 'N/A' }}</td>\r\n                </tr>\r\n            {% endfor %}\r\n        {% endfor %}\r\n    </tbody>\r\n</table>\r\n\r\n{% endblock %}",
+        "type": "markdown",
+        "depends_on": [
+            "client"
+        ],
+        "template_variables": "data_sources:\n  agentSoftware:\n    model: installedsoftware\n    filter:\n      agent__site__client__id: \"{{client.id}}\"\n    only:\n      - software\n      - agent__hostname\n      - agent__site__name\n      - agent__site__client"
+    },
+    "assets": []
+}

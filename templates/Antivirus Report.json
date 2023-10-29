@@ -1,1 +1,17 @@
-{"base_template":{"name":"Bootstrap Base","html":"<!doctype html>\n<html lang=\"en\">\n    <head>\n        <style>\n            {{css}}\n        </style>\n        <link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC\" crossorigin=\"anonymous\">\n    </head>\n    <body>\n        {% block content %}{% endblock %}\n        {% block header %}{% endblock %}\n    </body>\n</html>"},"template":{"name":"Antivirus Report","template_css":"","template_md":"{% block content %}\r\n<h1>Audit Log</h1>\r\n\r\n\r\n<table>\r\n  <thead>\r\n    <tr>\r\n\t<th>Device Name</th>\r\n\t<th>User</th>\r\n\t<th>Device OS</th>\r\n\t<th>Antivirus</th>\r\n    </tr>\r\n  </thead>\r\n  <tbody>\r\n    {% for item in data_sources.agentsList %}\r\n    <tr>\r\n\t<td>{{ item.hostname }}</td>\r\n\t<td>{{ item.last_logged_in_user }}</td>\r\n\t<td>{{ item.operating_system }}</td>\r\n\t<td>{{ item.custom_fields.Antivirus }}</td>\r\n\r\n    </tr>\r\n    {% endfor %}\r\n  </tbody>\r\n</table>\r\n\r\n\r\n{% endblock %}","type":"html","depends_on":["client"],"template_variables":"data_sources:\n  agentsList:\n    filter:\n      site__client_id: \"{{client.id}}\"\n    custom_fields:\n      - Antivirus\n    model: agent\n    only:\n      - hostname\n      - operating_system\n      - site__name\n      - last_logged_in_user"},"assets":[]}
+{
+    "base_template": {
+        "name": "Bootstrap Base",
+        "html": "<!doctype html>\n<html lang=\"en\">\n    <head>\n        <style>\n            {{css}}\n        </style>\n        <link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC\" crossorigin=\"anonymous\">\n    </head>\n    <body>\n        {% block content %}{% endblock %}\n        {% block header %}{% endblock %}\n    </body>\n</html>"
+    },
+    "template": {
+        "name": "Antivirus Report",
+        "template_css": "",
+        "template_md": "{% block content %}\r\n<h1>Audit Log</h1>\r\n\r\n\r\n<table>\r\n  <thead>\r\n    <tr>\r\n\t<th>Device Name</th>\r\n\t<th>User</th>\r\n\t<th>Device OS</th>\r\n\t<th>Antivirus</th>\r\n    </tr>\r\n  </thead>\r\n  <tbody>\r\n    {% for item in data_sources.agentsList %}\r\n    <tr>\r\n\t<td>{{ item.hostname }}</td>\r\n\t<td>{{ item.last_logged_in_user }}</td>\r\n\t<td>{{ item.operating_system }}</td>\r\n\t<td>{{ item.custom_fields.Antivirus }}</td>\r\n\r\n    </tr>\r\n    {% endfor %}\r\n  </tbody>\r\n</table>\r\n\r\n\r\n{% endblock %}",
+        "type": "html",
+        "depends_on": [
+            "client"
+        ],
+        "template_variables": "data_sources:\n  agentsList:\n    filter:\n      site__client_id: \"{{client.id}}\"\n    custom_fields:\n      - Antivirus\n    model: agent\n    only:\n      - hostname\n      - operating_system\n      - site__name\n      - last_logged_in_user"
+    },
+    "assets": []
+}

@@ -1,1 +1,12 @@
-{"base_template":null,"template":{"name":"Agent_ListClientThenSite (csv)","template_css":"","template_md":"{{ data_sources.agents }}","type":"plaintext","depends_on":[],"template_variables":"data_sources:\n  agents:\n    model: agent\n    only:\n      - site__client__name\n      - site__name\n      - hostname\n      - operating_system\n    order_by: \n      - -site__client__name\n      - site__name\n      - hostname\n    select_related:\n      - site\n      - site__client\n    csv: \n      site__client__name: Client\n      site__name: Site\n      hostname: Hostname\n      operating_system: Operating System"},"assets":[]}
+{
+    "base_template": null,
+    "template": {
+        "name": "Agent_ListClientThenSite (csv)",
+        "template_css": "",
+        "template_md": "{{ data_sources.agents }}",
+        "type": "plaintext",
+        "depends_on": [],
+        "template_variables": "data_sources:\n  agents:\n    model: agent\n    only:\n      - site__client__name\n      - site__name\n      - hostname\n      - operating_system\n    order_by: \n      - -site__client__name\n      - site__name\n      - hostname\n    select_related:\n      - site\n      - site__client\n    csv: \n      site__client__name: Client\n      site__name: Site\n      hostname: Hostname\n      operating_system: Operating System"
+    },
+    "assets": []
+}

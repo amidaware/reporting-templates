@@ -1,1 +1,14 @@
-{"base_template":null,"template":{"name":"Bitlocker Custom Field (csv)","template_css":"","template_md":"Device Name, User, Device OS, Bitlocker\r\n{% for item in data_sources.agentsList %}{{item.hostname if item.hostname else 'N/A'}},{{item.last_logged_in_user if item.last_logged_in_user else 'N/A'}},{{item.operating_system|replace(\",\", \"\") if item.operating_system else 'N/A'}},{{item.custom_fields.Bitlocker|replace(\"\\n\", \" \")|replace(\"\\r\", \"\") if item.custom_fields.Bitlocker else 'N/A'}},\r\n{% endfor %}","type":"plaintext","depends_on":["client"],"template_variables":"data_sources:\n  agentsList:\n    custom_fields:\n    - Bitlocker\n    filter:\n      site__client_id: '{{client.id}}'\n    model: agent\n    only:\n    - hostname\n    - operating_system\n    - site__name\n    - last_logged_in_user\n"},"assets":[]}
+{
+    "base_template": null,
+    "template": {
+        "name": "Bitlocker Custom Field (csv)",
+        "template_css": "",
+        "template_md": "Device Name, User, Device OS, Bitlocker\r\n{% for item in data_sources.agentsList %}{{item.hostname if item.hostname else 'N/A'}},{{item.last_logged_in_user if item.last_logged_in_user else 'N/A'}},{{item.operating_system|replace(\",\", \"\") if item.operating_system else 'N/A'}},{{item.custom_fields.Bitlocker|replace(\"\\n\", \" \")|replace(\"\\r\", \"\") if item.custom_fields.Bitlocker else 'N/A'}},\r\n{% endfor %}",
+        "type": "plaintext",
+        "depends_on": [
+            "client"
+        ],
+        "template_variables": "data_sources:\n  agentsList:\n    custom_fields:\n    - Bitlocker\n    filter:\n      site__client_id: '{{client.id}}'\n    model: agent\n    only:\n    - hostname\n    - operating_system\n    - site__name\n    - last_logged_in_user\n"
+    },
+    "assets": []
+}
