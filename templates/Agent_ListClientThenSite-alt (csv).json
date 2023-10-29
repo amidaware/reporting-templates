@@ -1,7 +1,7 @@
 {
   "base_template": null,
   "template": {
-    "name": "Agent_ListClientThenSite (csv)",
+    "name": "Agent_ListClientThenSite-alt (csv)",
     "template_css": "",
     "template_md": "{{ data_sources.agents }}",
     "type": "plaintext",
