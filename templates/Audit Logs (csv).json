@@ -5,9 +5,7 @@
         "template_css": "",
         "template_md": "Device Name, Action, User, Time\r\n{% set filtered_items = data_sources.auditlogList|selectattr('entry_time', 'ge', monthdays)|list %}{% for item in filtered_items %}{{item.agent}},{{item.action}},{{item.username}},{{item.entry_time}}\r\n{% endfor %}",
         "type": "plaintext",
-        "depends_on": [
-            "client"
-        ],
+        "depends_on": [],
         "template_variables": "data_sources:\n  auditlogList:\n    model: auditlog\n    only:\n    - username\n    - action\n    - message\n    - entry_time\n    - agent\nmonthdays: 2023-09-14 12:19:30.276762+00:00\nmonthweeks: 2023-09-16 12:19:30.276745+00:00\n"
     },
     "assets": []
