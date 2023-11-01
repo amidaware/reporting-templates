@@ -1,7 +1,7 @@
 {
     "base_template": null,
     "template": {
-        "name": "Windows Update Not Installed _By Client (csv)",
+        "name": "Windows Update Not Installed Client (csv)",
         "template_css": "",
         "template_md": "Device Name, Title, Installed, Severity,\r\n{% set filtered_items = data_sources.allFieldsWindowsUpdates|selectattr('installed', 'ne', True)|list %}{% for item in filtered_items %}{{item.agent__hostname if item.agent__hostname else 'N/A'}},{{item.title if item.title else 'N/A'}},{{item.installed if item.installed else 'False'}},{{item.severity if item.severity else 'N/A'}}\r\n{% endfor %}",
         "type": "plaintext",
