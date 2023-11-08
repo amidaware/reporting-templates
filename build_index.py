@@ -13,8 +13,10 @@ def main():
         temp = {"name": name_without_extension, "download_url": base_url + parse.quote(file)}
         index.append(temp)
 
+    sorted_index = sorted(index, key=lambda x: x['name'])
+
     with Path("index.json").open("w") as fp:
-        json.dump(index, fp)
+        json.dump(sorted_index, fp)
 
 if __name__ == "__main__":
     main()
