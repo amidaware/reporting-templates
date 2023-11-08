@@ -22,4 +22,8 @@ jobs:
           pip install --upgrade setuptools wheel
           pip install pytest validators
       - name: Run tests
-        run: pytest -vv
+        run: |
+          pytest -vv
+          if [ $? -ne 0 ]; then
+              exit 1
+          fi
