@@ -1,0 +1,25 @@
+name: test index
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+    branches:
+      - '**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+      - name: Install reqs
+        run: |
+          pip install --upgrade pip
+          pip install --upgrade setuptools wheel
+          pip install pytest validators
+      - name: Run tests
+        run: pytest -vv
