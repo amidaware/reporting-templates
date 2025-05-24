@@ -16,7 +16,7 @@ def main():
     sorted_index = sorted(index, key=lambda x: x['name'])
 
     with Path("index.json").open("w") as fp:
-        json.dump(sorted_index, fp)
+        json.dump(sorted_index, fp, indent=2)
 
 if __name__ == "__main__":
     main()
