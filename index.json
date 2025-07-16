@@ -12,12 +12,8 @@
     "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Agent%20List_By%20Client%20%28pdf%29.json"
   },
   {
-    "name": "Agent List_By Client with Specs (pdf)",
-    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Agent%20List_By%20Client%20with%20Specs%20%28pdf%29.json"
-  },
-  {
-    "name": "Agent List_By Client with Specs MultiColour(pdf)",
-    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Agent%20List_By%20Client%20with%20Specs%20MultiColour%28pdf%29.json"
+    "name": "Agent List_By Client with Specs (pdf) v2",
+    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Agent%20List_By%20Client%20with%20Specs%20%28pdf%29%20v2.json"
   },
   {
     "name": "Agent Specs",
@@ -124,24 +120,24 @@
     "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/All%20Fields%20-%20Windows%20Update%20Policies.json"
   },
   {
-    "name": "All Fields - Windows Update_Per Site (csv)",
-    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/All%20Fields%20-%20Windows%20Update_Per%20Site%20%28csv%29.json"
+    "name": "All Fields - Windows Update_By Site (csv)",
+    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/All%20Fields%20-%20Windows%20Update_By%20Site%20%28csv%29.json"
   },
   {
     "name": "All Fields - Windows Updates",
     "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/All%20Fields%20-%20Windows%20Updates.json"
   },
   {
-    "name": "All Fields Windows Update_Per Device (csv)",
-    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/All%20Fields%20Windows%20Update_Per%20Device%20%28csv%29.json"
+    "name": "All Fields Windows Update_By Device (csv)",
+    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/All%20Fields%20Windows%20Update_By%20Device%20%28csv%29.json"
   },
   {
-    "name": "All Fields Windows Update_Per Site (csv)",
-    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/All%20Fields%20Windows%20Update_Per%20Site%20%28csv%29.json"
+    "name": "All Fields Windows Update_By Site (csv)",
+    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/All%20Fields%20Windows%20Update_By%20Site%20%28csv%29.json"
   },
   {
-    "name": "All Fields Windows Update_Per Site w-sort (csv)",
-    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/All%20Fields%20Windows%20Update_Per%20Site%20w-sort%20%28csv%29.json"
+    "name": "All Fields Windows Update_By Site w-sort (csv)",
+    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/All%20Fields%20Windows%20Update_By%20Site%20w-sort%20%28csv%29.json"
   },
   {
     "name": "Antivirus Report",
@@ -232,16 +228,20 @@
     "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/WIP-Dashboard%20Demo.json"
   },
   {
-    "name": "Windows 11 Compatible List fixed (csv)",
-    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Windows%2011%20Compatible%20List%20fixed%20%28csv%29.json"
+    "name": "Windows 11 Compatible List_By Client (csv)",
+    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Windows%2011%20Compatible%20List_By%20Client%20%28csv%29.json"
   },
   {
-    "name": "Windows Update Not Installed _By Client",
-    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Windows%20Update%20Not%20Installed%20_By%20Client.json"
+    "name": "Windows 11 Compatible List_By Client (html) v1.7",
+    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Windows%2011%20Compatible%20List_By%20Client%20%28html%29%20v1.7.json"
   },
   {
-    "name": "Windows Update Not Installed _By Client (csv)",
-    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Windows%20Update%20Not%20Installed%20_By%20Client%20%28csv%29.json"
+    "name": "Windows Update Not Installed_By Client",
+    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Windows%20Update%20Not%20Installed_By%20Client.json"
+  },
+  {
+    "name": "Windows Update Not Installed_By Client (csv)",
+    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Windows%20Update%20Not%20Installed_By%20Client%20%28csv%29.json"
   },
   {
     "name": "Windows Update_Last Install Date (csv)",
