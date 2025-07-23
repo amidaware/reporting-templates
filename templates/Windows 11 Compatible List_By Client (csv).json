@@ -1,7 +1,7 @@
 {
   "base_template": null,
   "template": {
-    "name": "Windows 11 Compatible List fixed (csv)",
+    "name": "Windows 11 Compatible List_By Client (csv)",
     "template_css": "",
     "template_md": "Device Name, Device OS, Windows 11 Compatible\r\n{% for item in data_sources.agentsList %}{{item.hostname if item.hostname else 'N/A'}},{{item.operating_system|replace(\",\", \"\") if item.operating_system else 'N/A'}},{{item.custom_fields.Windows11Comp|replace(\"\\n\", \" \")|replace(\"\\r\", \"\") if item.custom_fields.Windows11Comp else 'N/A'}}\r\n{% endfor %}",
     "type": "plaintext",

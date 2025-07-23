@@ -1,7 +1,7 @@
 {
     "base_template": null,
     "template": {
-        "name": "Agent Full Software Report (csv)",
+        "name": "Software Report Full_By Agent (csv)",
         "template_css": "",
         "template_md": "Software Audit Report - {{agent.hostname}}\r\nSoftware Name, Version, Publisher\r\n{% for record in data_sources.agentSoftware %}{% for software in record.software %}{{ software.name or 'N/A' }}, {{ software.version or 'N/A' }}, {{ software.publisher or 'N/A' }}\r\n{% endfor %}{% endfor %}",
         "type": "plaintext",

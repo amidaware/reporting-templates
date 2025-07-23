@@ -1,7 +1,7 @@
 {
   "base_template": null,
   "template": {
-    "name": "Audit Logs",
+    "name": "Audit Logs (csv)",
     "template_css": "",
     "template_md": "Device Name, Action, User, Time\r\n{% set filtered_items = data_sources.auditlogList|selectattr('entry_time', 'ge', monthdays)|list %}{% for item in filtered_items %}{{item.agent}},{{item.action}},{{item.username}},{{item.entry_time}}\r\n{% endfor %}",
     "type": "plaintext",
