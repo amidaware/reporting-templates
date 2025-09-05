@@ -20,8 +20,12 @@
     "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Agent%20Specs.json"
   },
   {
-    "name": "Agent TRMM Install date_descending v1.3",
-    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Agent%20TRMM%20Install%20date_descending%20v1.3.json"
+    "name": "Agent TRMM Install date_by Client descending v1.5",
+    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Agent%20TRMM%20Install%20date_by%20Client%20descending%20v1.5.json"
+  },
+  {
+    "name": "Agent TRMM Install date_descending v1.5",
+    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Agent%20TRMM%20Install%20date_descending%20v1.5.json"
   },
   {
     "name": "Agent Uptime_By Client (html) v1.5",
@@ -148,8 +152,12 @@
     "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Antivirus%20Report.json"
   },
   {
-    "name": "Antivirus Report v1.1",
-    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Antivirus%20Report%20v1.1.json"
+    "name": "Antivirus Report v1.3",
+    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Antivirus%20Report%20v1.3.json"
+  },
+  {
+    "name": "Antivirus Report_by Client v1.3",
+    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Antivirus%20Report_by%20Client%20v1.3.json"
   },
   {
     "name": "Audit Logs (csv)",
