@@ -1,7 +1,7 @@
 {
     "base_template": null,
     "template": {
-        "name": "All Fields - Windows Update_By Site (csv)",
+        "name": "Windows Updates_By Site (csv)",
         "template_css": "",
         "template_md": "Device Name, ID, Agent ID, GUID, KB, Title, Installed, Downloaded, Description, Severity, Categories, Category_ids, KB Article IDs, More Info Urls, Support Url, Revision Number, Action, Result, Date Installed\r\n{% for item in data_sources.allFieldsWindowsUpdates %}{{item.agent__hostname if item.agent__hostname else 'N/A'}},{{item.id if item.id else 'N/A'}},{{item.agent_id if item.agent_id else 'N/A'}},{{item.guid if item.guid else 'N/A'}},{{item.kb if item.kb else 'N/A'}},{{item.title if item.title else 'N/A'}},{{item.installed if item.installed else 'N/A'}},{{item.downloaded if item.downloaded else 'N/A'}},{{item.description if item.description else 'N/A'}},{{item.severity if item.severity else 'N/A'}},{{item.categories if item.categories else 'N/A'}},{{item.category_ids if item.category_ids else 'N/A'}},{{item.kb_article_ids if item.kb_article_ids else 'N/A'}},{{item.more_info_urls if item.more_info_urls else 'N/A'}},{{item.support_url if item.support_url else 'N/A'}},{{item.revision_number if item.revision_number else 'N/A'}},{{item.action if item.action else 'N/A'}},{{item.result if item.result else 'N/A'}},{{item.date_installed if item.date_installed else 'N/A'}},\r\n{% endfor %}",
         "type": "plaintext",
