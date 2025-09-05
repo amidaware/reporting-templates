@@ -20,8 +20,8 @@
     "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Agent%20Specs.json"
   },
   {
-    "name": "Agent TRMM Install date_by Client descending v1.5",
-    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Agent%20TRMM%20Install%20date_by%20Client%20descending%20v1.5.json"
+    "name": "Agent TRMM Install date_By Client descending v1.5",
+    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Agent%20TRMM%20Install%20date_By%20Client%20descending%20v1.5.json"
   },
   {
     "name": "Agent TRMM Install date_descending v1.5",
@@ -128,28 +128,16 @@
     "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/All%20Fields%20-%20Windows%20Update%20Policies.json"
   },
   {
-    "name": "All Fields - Windows Update_By Site (csv)",
-    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/All%20Fields%20-%20Windows%20Update_By%20Site%20%28csv%29.json"
-  },
-  {
     "name": "All Fields - Windows Updates",
     "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/All%20Fields%20-%20Windows%20Updates.json"
   },
   {
-    "name": "All Fields Windows Update_By Device (csv)",
-    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/All%20Fields%20Windows%20Update_By%20Device%20%28csv%29.json"
-  },
-  {
-    "name": "All Fields Windows Update_By Site (csv)",
-    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/All%20Fields%20Windows%20Update_By%20Site%20%28csv%29.json"
-  },
-  {
-    "name": "All Fields Windows Update_By Site w-sort (csv)",
-    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/All%20Fields%20Windows%20Update_By%20Site%20w-sort%20%28csv%29.json"
-  },
-  {
     "name": "Antivirus Report v1.3",
     "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Antivirus%20Report%20v1.3.json"
+  },
+  {
+    "name": "Antivirus Report_by Client (csv)",
+    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Antivirus%20Report_by%20Client%20%28csv%29.json"
   },
   {
     "name": "Antivirus Report_by Client v1.3",
@@ -244,15 +232,27 @@
     "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Windows%2011%20Compatible%20List_By%20Client%20%28html%29%20v1.8.json"
   },
   {
-    "name": "Windows Update Not Installed_By Client",
-    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Windows%20Update%20Not%20Installed_By%20Client.json"
+    "name": "Windows Updates Not Installed_By Client",
+    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Windows%20Updates%20Not%20Installed_By%20Client.json"
   },
   {
-    "name": "Windows Update Not Installed_By Client (csv)",
-    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Windows%20Update%20Not%20Installed_By%20Client%20%28csv%29.json"
+    "name": "Windows Updates Not Installed_By Client (csv)",
+    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Windows%20Updates%20Not%20Installed_By%20Client%20%28csv%29.json"
   },
   {
-    "name": "Windows Update_Last Install Date (csv)",
-    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Windows%20Update_Last%20Install%20Date%20%28csv%29.json"
+    "name": "Windows Updates_By Device (csv)",
+    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Windows%20Updates_By%20Device%20%28csv%29.json"
+  },
+  {
+    "name": "Windows Updates_By Site (csv)",
+    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Windows%20Updates_By%20Site%20%28csv%29.json"
+  },
+  {
+    "name": "Windows Updates_By Site w-sort (csv)",
+    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Windows%20Updates_By%20Site%20w-sort%20%28csv%29.json"
+  },
+  {
+    "name": "Windows Updates_Last Install Date (csv)",
+    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Windows%20Updates_Last%20Install%20Date%20%28csv%29.json"
   }
 ]
