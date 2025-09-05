@@ -148,10 +148,6 @@
     "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/All%20Fields%20Windows%20Update_By%20Site%20w-sort%20%28csv%29.json"
   },
   {
-    "name": "Antivirus Report",
-    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Antivirus%20Report.json"
-  },
-  {
     "name": "Antivirus Report v1.3",
     "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Antivirus%20Report%20v1.3.json"
   },
