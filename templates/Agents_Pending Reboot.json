@@ -9,7 +9,7 @@
         "template_md": "{% block content %}\r\n# {{title}}\r\n\r\n## {{yo}} Heading\r\n<table class=\"table\">\r\n    <thead>\r\n    <tr>\r\n        <th scope=\"col\">Hostname</th>\r\n        <th scope=\"col\">Needs Reboot</th>\r\n        <th scope=\"col\">Last Seen</th>\r\n    </tr>\r\n    </thead>\r\n    <tbody>\r\n    {% for agent in data_sources.agentsPendingReboot %}\r\n\r\n    <tr scope=\"row\">\r\n    <td>{{agent.hostname}}</td>\r\n    <td>{{agent.needs_reboot}}</td>\r\n    <td>{{agent.last_seen.strftime('%m/%d/%Y')}}</td>\r\n    </tr>\r\n    {% endfor %}\r\n    </tbody>\r\n</table>\r\n\r\n{% endblock %}",
         "type": "markdown",
         "depends_on": [],
-        "template_variables": "data_sources:\n  agentsPendingReboot:\n    filter:\n      needs_reboot: true\n    limit: 100\n    model: agent\n    only:\n    - hostname\n    - needs_reboot\n    - last_seen\ntitle: All Agents Needing Reboot\n"
+        "template_variables": "data_sources:\n  agentsPendingReboot:\n    filter:\n      needs_reboot: true\n    limit: 1000\n    model: agent\n    only:\n    - hostname\n    - needs_reboot\n    - last_seen\ntitle: All Agents Needing Reboot\n"
     },
     "assets": []
 }

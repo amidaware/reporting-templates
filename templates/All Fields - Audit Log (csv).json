@@ -6,7 +6,7 @@
         "template_md": "id, username, agent, agent_id, entry_time, action, object_type, before_value, after_value, message, debug_info, debug_info.ip\r\n{% for item in data_sources.allFieldsAuditLog %}{{ item.id }}, {{ item.username }}, {{ item.agent }}, {{ item.agent_id }}, {{ item.entry_time }}, {{ item.action }}, {{ item.object_type }}, {{ item.before_value }}, {{ item.after_value }}, {{ item.message }}, {{ item.debug_info }}, {{ item.debug_info.ip }}\r\n{% endfor %}",
         "type": "plaintext",
         "depends_on": [],
-        "template_variables": "data_sources:\n  allFieldsAuditLog:\n    limit: 500\n    model: auditlog\n"
+        "template_variables": "data_sources:\n  allFieldsAuditLog:\n    limit: 1000\n    model: auditlog\n"
     },
     "assets": []
 }
