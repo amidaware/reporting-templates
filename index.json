@@ -12,8 +12,8 @@
     "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Agent%20List_By%20Client%20v1.3.json"
   },
   {
-    "name": "Agent List_By Client with Specs (pdf) v1.2",
-    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Agent%20List_By%20Client%20with%20Specs%20%28pdf%29%20v1.2.json"
+    "name": "Agent List_By Client with Specs (pdf) v1.3",
+    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Agent%20List_By%20Client%20with%20Specs%20%28pdf%29%20v1.3.json"
   },
   {
     "name": "Agent Specs",
@@ -48,12 +48,16 @@
     "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Agents_Pending%20Reboot%20v1.2.json"
   },
   {
-    "name": "All Fields - Agent Data Fields",
-    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/All%20Fields%20-%20Agent%20Data%20Fields.json"
+    "name": "Alerts - Interactive Dashboard (html) v1.5",
+    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Alerts%20-%20Interactive%20Dashboard%20%28html%29%20v1.5.json"
   },
   {
-    "name": "All Fields - Agent Data Fields (csv)",
-    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/All%20Fields%20-%20Agent%20Data%20Fields%20%28csv%29.json"
+    "name": "All Fields - Agent Data Fields (csv) v1.1",
+    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/All%20Fields%20-%20Agent%20Data%20Fields%20%28csv%29%20v1.1.json"
+  },
+  {
+    "name": "All Fields - Agent Data Fields v1.1",
+    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/All%20Fields%20-%20Agent%20Data%20Fields%20v1.1.json"
   },
   {
     "name": "All Fields - Agent History",
@@ -148,6 +152,10 @@
     "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Comprehensive%20Report%20HTML%20v1.3.json"
   },
   {
+    "name": "Comprehensive Report_by Client (html) v1.12",
+    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Comprehensive%20Report_by%20Client%20%28html%29%20v1.12.json"
+  },
+  {
     "name": "Custom Fields Example1",
     "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Custom%20Fields%20Example1.json"
   },
@@ -156,16 +164,16 @@
     "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Custom%20Fields%20Example2.json"
   },
   {
-    "name": "Device Inventory Report - Advanced DataTables",
-    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Device%20Inventory%20Report%20-%20Advanced%20DataTables.json"
+    "name": "Device Inventory Report - Advanced DataTables v1.9",
+    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Device%20Inventory%20Report%20-%20Advanced%20DataTables%20v1.9.json"
   },
   {
     "name": "Machine Specs (csv)",
     "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Machine%20Specs%20%28csv%29.json"
   },
   {
-    "name": "NOC Dashboard v1.25",
-    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/NOC%20Dashboard%20v1.25.json"
+    "name": "NOC Dashboard v1.31",
+    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/NOC%20Dashboard%20v1.31.json"
   },
   {
     "name": "OS Operating Systems Report v1.8",
