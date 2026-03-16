@@ -32,7 +32,7 @@ class ReportNamingConvention:
     
     # Update VALID_SCOPES to include base scopes, validation will extract base scope
     VALID_SCOPES = {"Client", "Site", "Agent", "Device", "Software Name", "ClientThenSite"}
-    VALID_FORMATS = {"csv", "pdf", "html"}
+    VALID_FORMATS = {"csv", "pdf", "html", "md"}
     VERSION_PATTERN = r"^v\d+(?:\.\d+)*$"
 
     @classmethod

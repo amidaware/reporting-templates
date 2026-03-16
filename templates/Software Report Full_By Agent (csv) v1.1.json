@@ -1,9 +1,9 @@
 {
     "base_template": null,
     "template": {
-        "name": "Software Report Full_By Agent (csv)",
+        "name": "Software Report Full_By Agent (csv) v1.1",
         "template_css": "",
-        "template_md": "Software Audit Report - {{agent.hostname}}\r\nSoftware Name, Version, Publisher\r\n{% for record in data_sources.agentSoftware %}{% for software in record.software %}{{ software.name or 'N/A' }}, {{ software.version or 'N/A' }}, {{ software.publisher or 'N/A' }}\r\n{% endfor %}{% endfor %}",
+        "template_md": "Software Audit Report - {{agent.hostname}}\r\nSoftware Name, Version, Publisher\r\n{% for record in data_sources.agentSoftware %}{% for software in record.software | default([]) %}{{ software.name or 'N/A' }}, {{ software.version or 'N/A' }}, {{ software.publisher or 'N/A' }}\r\n{% endfor %}{% endfor %}",
         "type": "plaintext",
         "depends_on": [
             "agent"

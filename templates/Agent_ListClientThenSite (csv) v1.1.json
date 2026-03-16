@@ -1,0 +1,12 @@
+{
+    "base_template": null,
+    "template": {
+        "name": "Agent_ListClientThenSite (csv) v1.1",
+        "template_css": "",
+        "template_md": "Client,Site,Hostname,Operating System,Last Boot Time,Offline Time (minutes),Overdue Time (minutes),Needs Reboot\n{% for agent in data_sources.agents %}{{ agent.site__client__name }},{{ agent.site__name }},{{ agent.hostname }},{{ agent.operating_system }},{% if agent.boot_time %}{{ (agent.boot_time | int) / 86400 + 25569 }}{% else %}Unknown{% endif %},{{ agent.offline_time if agent.offline_time else 0 }},{{ agent.overdue_time if agent.overdue_time else 0 }},{{ agent.needs_reboot }}\n{% endfor %}",
+        "type": "plaintext",
+        "depends_on": [],
+        "template_variables": "data_sources:\n  agents:\n    model: agent\n    only:\n      - site__client__name\n      - site__name\n      - hostname\n      - operating_system\n      - boot_time\n      - offline_time\n      - overdue_time\n      - needs_reboot\n    order_by: \n      - -site__client__name\n      - site__name\n      - hostname\n    select_related:\n      - site\n      - site__client"
+    },
+    "assets": []
+}

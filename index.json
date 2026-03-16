@@ -4,20 +4,20 @@
     "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Agent%20List_By%20Client%20%28csv%29.json"
   },
   {
+    "name": "Agent List_By Client (md) v1.3",
+    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Agent%20List_By%20Client%20%28md%29%20v1.3.json"
+  },
+  {
     "name": "Agent List_By Client (pdf)",
     "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Agent%20List_By%20Client%20%28pdf%29.json"
   },
   {
-    "name": "Agent List_By Client v1.3",
-    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Agent%20List_By%20Client%20v1.3.json"
+    "name": "Agent List_By Client with Specs (pdf) v1.6",
+    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Agent%20List_By%20Client%20with%20Specs%20%28pdf%29%20v1.6.json"
   },
   {
-    "name": "Agent List_By Client with Specs (pdf) v1.3",
-    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Agent%20List_By%20Client%20with%20Specs%20%28pdf%29%20v1.3.json"
-  },
-  {
-    "name": "Agent Specs",
-    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Agent%20Specs.json"
+    "name": "Agent Specs (md)",
+    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Agent%20Specs%20%28md%29.json"
   },
   {
     "name": "Agent TRMM Install date_descending v1.6",
@@ -28,24 +28,24 @@
     "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Agent%20Uptime_By%20Client%20%28html%29%20v1.5.json"
   },
   {
-    "name": "Agent_ListClientThenSite (csv)",
-    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Agent_ListClientThenSite%20%28csv%29.json"
+    "name": "Agent_ListClientThenSite (csv) v1.1",
+    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Agent_ListClientThenSite%20%28csv%29%20v1.1.json"
   },
   {
     "name": "Agent_ListClientThenSite-alt (csv)",
     "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Agent_ListClientThenSite-alt%20%28csv%29.json"
   },
   {
-    "name": "Agents_Filtered by RAM",
-    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Agents_Filtered%20by%20RAM.json"
-  },
-  {
     "name": "Agents_Filtered by RAM (csv)",
     "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Agents_Filtered%20by%20RAM%20%28csv%29.json"
   },
   {
-    "name": "Agents_Pending Reboot v1.2",
-    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Agents_Pending%20Reboot%20v1.2.json"
+    "name": "Agents_Filtered by RAM (md)",
+    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Agents_Filtered%20by%20RAM%20%28md%29.json"
+  },
+  {
+    "name": "Agents_Pending Reboot (md) v1.2",
+    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Agents_Pending%20Reboot%20%28md%29%20v1.2.json"
   },
   {
     "name": "Alerts - Interactive Dashboard (html) v1.6",
@@ -80,8 +80,8 @@
     "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/All%20Fields%20-%20Audit%20Log.json"
   },
   {
-    "name": "All Fields - Audit Log (csv)",
-    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/All%20Fields%20-%20Audit%20Log%20%28csv%29.json"
+    "name": "All Fields - Audit Log (csv) v1.1",
+    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/All%20Fields%20-%20Audit%20Log%20%28csv%29%20v1.1.json"
   },
   {
     "name": "All Fields - Automated Tasks",
@@ -156,8 +156,8 @@
     "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Comprehensive%20Report_by%20Client%20%28html%29%20v1.12.json"
   },
   {
-    "name": "Custom Fields Example1",
-    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Custom%20Fields%20Example1.json"
+    "name": "Custom Fields Example1 (md)",
+    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Custom%20Fields%20Example1%20%28md%29.json"
   },
   {
     "name": "Custom Fields Example2",
@@ -168,8 +168,8 @@
     "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Device%20Inventory%20Report%20-%20Advanced%20DataTables%20v1.9.json"
   },
   {
-    "name": "Machine Specs (csv)",
-    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Machine%20Specs%20%28csv%29.json"
+    "name": "Machine Specs (csv) v1.1",
+    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Machine%20Specs%20%28csv%29%20v1.1.json"
   },
   {
     "name": "NOC Dashboard v1.31",
@@ -188,36 +188,36 @@
     "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Software%20Inventory_By%20Software%20Name.json"
   },
   {
-    "name": "Software List_By Agent (csv)",
-    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Software%20List_By%20Agent%20%28csv%29.json"
+    "name": "Software List_By Agent (csv) v1.1",
+    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Software%20List_By%20Agent%20%28csv%29%20v1.1.json"
   },
   {
-    "name": "Software Report - Advanced DataTables",
-    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Software%20Report%20-%20Advanced%20DataTables.json"
+    "name": "Software Report - Advanced DataTables_By Client (html) v1.2",
+    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Software%20Report%20-%20Advanced%20DataTables_By%20Client%20%28html%29%20v1.2.json"
   },
   {
-    "name": "Software Report Full_By Agent",
-    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Software%20Report%20Full_By%20Agent.json"
+    "name": "Software Report Full_By Agent (csv) v1.1",
+    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Software%20Report%20Full_By%20Agent%20%28csv%29%20v1.1.json"
   },
   {
-    "name": "Software Report Full_By Agent (csv)",
-    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Software%20Report%20Full_By%20Agent%20%28csv%29.json"
+    "name": "Software Report Full_By Agent (md)",
+    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Software%20Report%20Full_By%20Agent%20%28md%29.json"
   },
   {
-    "name": "Software Report Full_By Client",
-    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Software%20Report%20Full_By%20Client.json"
+    "name": "Software Report Full_By Client (csv) v1.1",
+    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Software%20Report%20Full_By%20Client%20%28csv%29%20v1.1.json"
   },
   {
-    "name": "Software Report Full_By Client (csv)",
-    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Software%20Report%20Full_By%20Client%20%28csv%29.json"
+    "name": "Software Report Full_By Client (md)",
+    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Software%20Report%20Full_By%20Client%20%28md%29.json"
   },
   {
-    "name": "Software Report Starts With_By Agent",
-    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Software%20Report%20Starts%20With_By%20Agent.json"
+    "name": "Software Report Starts With_By Agent (md)",
+    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Software%20Report%20Starts%20With_By%20Agent%20%28md%29.json"
   },
   {
-    "name": "Software Report_By Agent",
-    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Software%20Report_By%20Agent.json"
+    "name": "Software Report_By Agent (md)",
+    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Software%20Report_By%20Agent%20%28md%29.json"
   },
   {
     "name": "WIP-Dashboard Demo",
@@ -232,12 +232,12 @@
     "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Windows%2011%20Compatible%20List_By%20Client%20%28html%29%20v1.9.json"
   },
   {
-    "name": "Windows Updates Not Installed_By Client",
-    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Windows%20Updates%20Not%20Installed_By%20Client.json"
-  },
-  {
     "name": "Windows Updates Not Installed_By Client (csv)",
     "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Windows%20Updates%20Not%20Installed_By%20Client%20%28csv%29.json"
+  },
+  {
+    "name": "Windows Updates Not Installed_By Client (md)",
+    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Windows%20Updates%20Not%20Installed_By%20Client%20%28md%29.json"
   },
   {
     "name": "Windows Updates_By Device (csv)",

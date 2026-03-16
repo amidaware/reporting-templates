@@ -1,9 +1,9 @@
 {
     "base_template": null,
     "template": {
-        "name": "Software List_By Agent (csv)",
+        "name": "Software List_By Agent (csv) v1.1",
         "template_css": "",
-        "template_md": "Client, Agent, Software Name, Version, Publisher\r\n<!-- loop through each agent returns | loop through software and only return the software we are looking for | only add row if software name matches -->\r\n{% for record in data_sources.agentSoftware %}{% for software in record.software %}{% if software.name.startswith(software_name) %}{% if software.version != target_version %}{% endif %}{{ record.agent__site__client__name }}, {{ record.agent__hostname }}, {{ software.name }}, {{ software.version }}, {{ software.publisher }}\r\n{% endif %}{% endfor %}{% endfor %}",
+        "template_md": "Client, Agent, Software Name, Version, Publisher\r\n{% for record in data_sources.agentSoftware %}{% for software in record.software | default([]) %}{% if software.name.startswith(software_name) %}{% if software.version.startswith(target_version) %}{{ record.agent__site__client__name }}, {{ record.agent__hostname }}, {{ software.name }}, {{ software.version }}, {{ software.publisher }}\r\n{% endif %}{% endif %}{% endfor %}{% endfor %}",
         "type": "plaintext",
         "depends_on": [
             "software_name",

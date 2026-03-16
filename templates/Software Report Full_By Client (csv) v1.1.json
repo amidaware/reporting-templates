@@ -1,9 +1,9 @@
 {
     "base_template": null,
     "template": {
-        "name": "Software Report Full_By Client (csv)",
+        "name": "Software Report Full_By Client (csv) v1.1",
         "template_css": "",
-        "template_md": "Device Name, Software Name, Version, Publisher\r\n{% for record in data_sources.agentSoftware %}{% for software in record.software %}{{ record.agent__hostname or 'N/A' }}, {{ software.name or 'N/A' }}, {{ software.version or 'N/A' }}, {{ software.publisher or 'N/A' }}\r\n{% endfor %}{% endfor %}",
+        "template_md": "Device Name, Software Name, Version, Publisher\r\n{% for record in data_sources.agentSoftware %}{% for software in record.software | default([]) %}{{ record.agent__hostname or 'N/A' }}, {{ software.name or 'N/A' }}, {{ software.version or 'N/A' }}, {{ software.publisher or 'N/A' }}\r\n{% endfor %}{% endfor %}",
         "type": "plaintext",
         "depends_on": [
             "client"
