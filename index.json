@@ -16,16 +16,24 @@
     "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Agent%20List_By%20Client%20with%20Specs%20%28pdf%29%20v1.6.json"
   },
   {
-    "name": "Agent Specs (md)",
-    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Agent%20Specs%20%28md%29.json"
+    "name": "Agent Specs v3.2",
+    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Agent%20Specs%20v3.2.json"
+  },
+  {
+    "name": "Agent Status Task and Check Dashboard v1.19",
+    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Agent%20Status%20Task%20and%20Check%20Dashboard%20v1.19.json"
   },
   {
     "name": "Agent TRMM Install date_descending v1.6",
     "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Agent%20TRMM%20Install%20date_descending%20v1.6.json"
   },
   {
-    "name": "Agent Uptime_By Client (html) v1.5",
-    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Agent%20Uptime_By%20Client%20%28html%29%20v1.5.json"
+    "name": "Agent Uptime (html) v3.2",
+    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Agent%20Uptime%20%28html%29%20v3.2.json"
+  },
+  {
+    "name": "Agent Uptime_By Client (html) v3.2",
+    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Agent%20Uptime_By%20Client%20%28html%29%20v3.2.json"
   },
   {
     "name": "Agent_ListClientThenSite (csv) v1.1",
@@ -40,12 +48,20 @@
     "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Agents_Filtered%20by%20RAM%20%28csv%29.json"
   },
   {
-    "name": "Agents_Filtered by RAM (md)",
-    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Agents_Filtered%20by%20RAM%20%28md%29.json"
+    "name": "Agents_Filtered by RAM (md) v3.1",
+    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Agents_Filtered%20by%20RAM%20%28md%29%20v3.1.json"
+  },
+  {
+    "name": "Agents_Pending Reboot (csv)",
+    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Agents_Pending%20Reboot%20%28csv%29.json"
   },
   {
     "name": "Agents_Pending Reboot (md) v1.2",
     "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Agents_Pending%20Reboot%20%28md%29%20v1.2.json"
+  },
+  {
+    "name": "Agents_Pending Reboot v3.1",
+    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Agents_Pending%20Reboot%20v3.1.json"
   },
   {
     "name": "Alerts - Interactive Dashboard (html) v1.6",
@@ -128,8 +144,8 @@
     "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/All%20Fields%20-%20Windows%20Updates.json"
   },
   {
-    "name": "Antivirus Report v1.6",
-    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Antivirus%20Report%20v1.6.json"
+    "name": "Antivirus Report v3.1",
+    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Antivirus%20Report%20v3.1.json"
   },
   {
     "name": "Antivirus Report_by Client (csv)",
@@ -172,16 +188,12 @@
     "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Machine%20Specs%20%28csv%29%20v1.1.json"
   },
   {
-    "name": "NOC Dashboard v1.31",
-    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/NOC%20Dashboard%20v1.31.json"
+    "name": "NOC Dashboard v1.32",
+    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/NOC%20Dashboard%20v1.32.json"
   },
   {
     "name": "OS Operating Systems Report v1.8",
     "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/OS%20Operating%20Systems%20Report%20v1.8.json"
-  },
-  {
-    "name": "Pending Reboot_By Agent (csv)",
-    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Pending%20Reboot_By%20Agent%20%28csv%29.json"
   },
   {
     "name": "Software Inventory_By Software Name",
@@ -228,8 +240,8 @@
     "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Windows%2011%20Compatible%20List_By%20Client%20%28csv%29.json"
   },
   {
-    "name": "Windows 11 Compatible List_By Client (html) v1.9",
-    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Windows%2011%20Compatible%20List_By%20Client%20%28html%29%20v1.9.json"
+    "name": "Windows 11 Compatible List_By Client (html) v3.1",
+    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Windows%2011%20Compatible%20List_By%20Client%20%28html%29%20v3.1.json"
   },
   {
     "name": "Windows Updates Not Installed_By Client (csv)",
@@ -238,6 +250,10 @@
   {
     "name": "Windows Updates Not Installed_By Client (md)",
     "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Windows%20Updates%20Not%20Installed_By%20Client%20%28md%29.json"
+  },
+  {
+    "name": "Windows Updates Not Installed_By Client v3.1",
+    "download_url": "https://raw.githubusercontent.com/amidaware/reporting-templates/master/templates/Windows%20Updates%20Not%20Installed_By%20Client%20v3.1.json"
   },
   {
     "name": "Windows Updates_By Device (csv)",

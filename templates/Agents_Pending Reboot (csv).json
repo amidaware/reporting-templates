@@ -1,7 +1,7 @@
 {
     "base_template": null,
     "template": {
-        "name": "Pending Reboot_By Agent (csv)",
+        "name": "Agents_Pending Reboot (csv)",
         "template_css": "",
         "template_md": "Device Name, Needs Rebooted, Last Seen\r\n{% for item in data_sources.agentsPendingReboot %}{{item.hostname if item.hostname else 'N/A'}},{{item.needs_reboot if item.needs_reboot else 'N/A'}},{{ (item.last_seen|string)|truncate(19, False, '') if item.last_seen else 'N/A' }}\r\n{% endfor %}",
         "type": "plaintext",

@@ -1,0 +1,1389 @@
+<html>
+<!--
+TRMM_Base v3.0 - Advanced Table Controls
+=========================================
+
+This base template provides a complete JavaScript framework for building interactive,
+sortable, filterable data tables with professional UI controls.
+
+WHAT'S INCLUDED:
+- Complete CSS styling for advanced table controls
+- Full JavaScript framework (~600 lines) for filtering, sorting, and UI
+- Utility functions (debounce, stripHtml, popover positioning)
+- State management system
+- Combo box filters with multi-select
+- Global search across all columns
+- Range filters for numeric columns
+- Sticky headers
+- Print button and print-optimized styling
+
+WHAT REPORTS MUST PROVIDE:
+1. HTML structure with specific IDs:
+   - #loading (loading indicator)
+   - #tableWrap (table container, initially hidden)
+   - #tableHead (thead element)
+   - #tableBody (tbody element)
+   - #visibleCount, #totalCount (optional row counters)
+
+2. Data source as JSON in <script id="data-json"> tag
+
+3. Column definitions array:
+   var columns = [
+       { id: 'fieldName', title: 'Display Name', html: false,
+         filter: true, selectable: true, sortable: true, ... }
+   ];
+
+4. Initialization code:
+   buildHeader();
+   renderBody();
+   updateCount();
+
+See CLAUDE.md for complete documentation and examples.
+
+Source: Extracted from Device Inventory Report v1.9
+-->
+
+<head>
+    <style>
+        /* —— PDF page settings —— */
+        @page {
+            margin: 0.5in;
+        }
+
+        /* —— Color palette (theme) —— */
+        :root {
+            --header-bg: #2c3e50;
+            --header-text: #ffffff;
+            --border-color: #dddddd;
+            --table-header-bg: #f2f2f2;
+            --status-ready-bg: #eaf7ec;
+            --status-ready-badge: #28a745;
+            --status-not-ready-bg: #fbebee;
+            --status-not-ready-badge: #dc3545;
+            --status-unknown-bg: #fff9e6;
+            --status-unknown-badge: #ffc107;
+            --badge-already-bg: #17a2b8;
+            --focus: #3b82f6;
+            --pane-gap: 10px;
+        }
+
+        /* —— Typography & utilities (structure) —— */
+        body {
+            font-family: sans-serif;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .section {
+            margin-top: 20px;
+        }
+
+        .text-danger {
+            color: var(--status-not-ready-badge);
+            font-weight: bold;
+        }
+
+        /* —— Header layout (structure) —— */
+        .report-header {
+            background-color: var(--header-bg);
+            color: var(--header-text);
+            padding: 20px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .header-logo {
+            width: 80px;
+            margin-right: 25px;
+            flex-shrink: 0;
+        }
+
+        .header-date {
+            margin-left: auto;
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        .report-header h1 {
+            font-size: 24px;
+            margin: 0 0 5px;
+        }
+
+        .report-header h2 {
+            font-size: 16px;
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        /* —— Print controls (structure) —— */
+        .print-controls {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            z-index: 10;
+        }
+
+        .print-button {
+            padding: 4px 8px;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: var(--header-text);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+
+        .print-button:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* —— Advanced Table Controls (NEW in v3.0) —— */
+
+        /* Table wrapper and basic table styling */
+        .table-wrap {
+            overflow-x: auto;
+            border: 1px solid var(--border-color);
+            margin-top: var(--pane-gap);
+        }
+
+        table.vt {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+        }
+
+        table.vt th,
+        table.vt td {
+            padding: 6px 8px;
+            border-bottom: 1px solid #eee;
+            vertical-align: top;
+        }
+
+        table.vt th {
+            white-space: nowrap;
+            background-color: var(--table-header-bg);
+        }
+
+        table.vt td {
+            white-space: normal;
+            background: #fff;
+        }
+
+        /* Sticky THEAD (includes global search row + column header row) */
+        table.vt > thead {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: #fafafa;
+        }
+
+        /* Global search row (first header row) */
+        .headbar {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 0;
+        }
+
+        .headbar .title {
+            font-weight: 600;
+            opacity: 0.85;
+        }
+
+        .headbar .spacer {
+            flex: 1 1 auto;
+        }
+
+        /* Global search "pill" style */
+        .search-wrap {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .search-input {
+            width: clamp(260px, 34vw, 520px);
+            padding: 6px 30px;
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            font-size: 12px;
+            outline: none;
+            background: #fff;
+        }
+
+        .search-input:focus {
+            border-color: var(--focus);
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.12);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 10px;
+            width: 16px;
+            height: 16px;
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        /* Column header structure */
+        .th-inner {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            min-height: 48px;
+        }
+
+        .th-title {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 600;
+        }
+
+        th.sortable {
+            cursor: pointer;
+            user-select: none;
+        }
+
+        th.sortable .sort-ind {
+            opacity: 0.6;
+            margin-left: 4px;
+        }
+
+        /* Combo box filter control */
+        .combo {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #fff;
+            padding: 2px 8px;
+        }
+
+        .combo:focus-within {
+            border-color: var(--focus);
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.12);
+        }
+
+        .combo-input {
+            flex: 1 1 auto;
+            border: 0;
+            outline: 0;
+            font-size: 12px;
+            padding: 6px 6px;
+            background: transparent;
+            min-width: 0;
+        }
+
+        .combo-right {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+
+        .combo-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            border: 0;
+            background: transparent;
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 6px;
+        }
+
+        .combo-btn:hover {
+            background: #f1f5f9;
+        }
+
+        .chev {
+            width: 14px;
+            height: 14px;
+            opacity: 0.7;
+        }
+
+        /* Selection count badge */
+        .badge {
+            font-size: 11px;
+            padding: 2px 6px;
+            border-radius: 999px;
+            background: #eef2ff;
+            color: #3730a3;
+            border: 1px solid #c7d2fe;
+        }
+
+        /* Clear button (floating X) - different from print button */
+        .clear-filter-btn {
+            position: absolute;
+            top: 0;
+            right: 0;
+            transform: translate(50%, -50%);
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #e53e3e;
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-family: sans-serif;
+            font-size: 13px;
+            font-weight: bold;
+            line-height: 18px;
+            padding: 0;
+            z-index: 5;
+        }
+
+        .clear-filter-btn:hover {
+            background: #c53030;
+        }
+
+        .combo .clear-filter-btn {
+            right: 0px;
+        }
+
+        /* Range filter inputs */
+        .filter-wrap {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .filter-input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 4px 6px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 12px;
+            background: #fff;
+        }
+
+        /* Popover (filter picker with checkboxes) */
+        .popover {
+            position: fixed;
+            min-width: 260px;
+            max-width: 380px;
+            max-height: 280px;
+            overflow: auto;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            padding: 8px;
+            z-index: 10000;
+        }
+
+        .opt {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px 2px;
+        }
+
+        .opt label {
+            flex: 1 1 auto;
+            font-size: 12px;
+        }
+
+        /* Loading indicator */
+        #loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 150px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        /* —— Badge shape (structure) —— */
+        .status-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            color: #fff;
+            font-weight: bold;
+            font-size: 11px;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        /* —— Stub classes for per‑report overrides —— */
+        .status-ready {}
+        .status-not-ready {}
+        .status-unknown {}
+        .badge-ready {}
+        .badge-not-ready {}
+        .badge-unknown {}
+        .badge-already {}
+
+        /* —— Footer layout (structure) —— */
+        .report-footer {
+            margin-top: 30px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border-color);
+            font-size: 10px;
+            color: #666;
+            text-align: center;
+        }
+
+        /* —— Screen-only styles (hide when printing) —— */
+        @media screen {
+            .print-only {
+                display: none !important;
+            }
+        }
+
+        /* —— Print-specific styles —— */
+        @media print {
+            /* Hide interactive elements when printing */
+            .no-print {
+                display: none !important;
+            }
+
+            /* Disable sticky so thead repeats cleanly on each page */
+            table.vt > thead {
+                position: static;
+            }
+
+            /* Ensure proper page breaks */
+            table.vt {
+                page-break-inside: auto;
+            }
+
+            table.vt tr {
+                page-break-inside: avoid;
+                page-break-after: auto;
+            }
+
+            table.vt thead {
+                display: table-header-group;
+            }
+
+            table.vt tbody {
+                display: table-row-group;
+            }
+
+            /* Optimize colors for print */
+            body {
+                color: #000;
+                background: #fff;
+            }
+
+            .report-header {
+                border-radius: 0;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                color-adjust: exact;
+            }
+
+            .status-badge {
+                border: 1px solid #333;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                color-adjust: exact;
+            }
+
+            .status-ready,
+            .status-not-ready,
+            .status-unknown {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                color-adjust: exact;
+            }
+
+            p, h1, h2, h3, h4, h5, h6 {
+                orphans: 3;
+                widows: 3;
+            }
+
+            h1, h2, h3, h4, h5, h6 {
+                page-break-after: avoid;
+            }
+
+            .section {
+                margin-top: 15px;
+            }
+
+            a[href]:after {
+                content: none;
+            }
+        }
+    </style>
+
+    <script>
+        /*
+         * TRMM_Base v3.0 - Advanced Table Controls JavaScript Framework
+         * ================================================================
+         *
+         * This framework provides complete filtering, sorting, and UI management
+         * for interactive data tables. Reports using this base template need only
+         * provide data and column definitions.
+         *
+         * ARCHITECTURE:
+         * - State management: Central state object tracks all filters and sorting
+         * - Data-driven: Column metadata defines table structure and behavior
+         * - Event-driven: User interactions update state and trigger re-renders
+         * - Client-side: All filtering and sorting happens in browser
+         *
+         * REQUIRED FROM REPORTS:
+         * - var columns = [ ... ]  // Column definitions
+         * - var data = [ ... ]     // Row data as array of objects
+         * - HTML elements with specific IDs (see documentation)
+         *
+         * INITIALIZATION:
+         * 1. Define columns array
+         * 2. Load data from JSON
+         * 3. Call buildHeader()
+         * 4. Call renderBody()
+         * 5. Call updateCount()
+         *
+         * See CLAUDE.md for complete documentation.
+         */
+
+        // ============================================================
+        // UTILITY FUNCTIONS
+        // ============================================================
+
+        // Simple DOM selectors
+        var $ = function(s, r) { return (r || document).querySelector(s); };
+        var $$ = function(s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+
+        // Debounce function calls for performance
+        var debounce = function(fn, ms) {
+            var t;
+            return function() {
+                var a = arguments;
+                clearTimeout(t);
+                t = setTimeout(function() { fn.apply(null, a); }, ms || 200);
+            };
+        };
+
+        // Create DOM node from HTML string
+        var htmlNode = function(s) {
+            var el = document.createElement('span');
+            el.innerHTML = String(s || '');
+            return el;
+        };
+
+        // Strip HTML tags from string (for filtering HTML content)
+        var stripHtml = function(s) {
+            var d = document.createElement('div');
+            d.innerHTML = String(s || '');
+            return d.textContent || d.innerText || '';
+        };
+
+        // ============================================================
+        // STATE MANAGEMENT
+        // ============================================================
+
+        /*
+         * Central state object tracks all user interactions:
+         * - globalFilter: Text search across all columns
+         * - columnText: Per-column text search
+         * - columnSelect: Per-column multi-select values
+         * - range: Min/max filters for numeric columns
+         * - clientSite: Special dual filter for Client/Site columns
+         * - sorting: Current sort column and direction
+         * - _popoverEl: Reference to open popover (for cleanup)
+         */
+        var state = {
+            globalFilter: '',
+            columnText: {},
+            columnSelect: {},
+            range: {},
+            clientSite: { textClient: '', textSite: '', selClient: [], selSite: [] },
+            sorting: { id: null, desc: false },
+            _popoverEl: null
+        };
+
+        // ============================================================
+        // DATA PROCESSING FUNCTIONS
+        // ============================================================
+
+        /*
+         * Locale-aware string comparison with numeric support
+         */
+        function compare(a, b) {
+            var na = a == null ? '' : String(a);
+            var nb = b == null ? '' : String(b);
+            return na.localeCompare(nb, undefined, { numeric: true, sensitivity: 'base' });
+        }
+
+        /*
+         * Extract filterable value from a row for a given column
+         * Handles HTML content by stripping tags
+         */
+        function valueFor(row, col) {
+            var key = (col.filterKey || col.id);
+            var v = row[key];
+            return col.html ? stripHtml(v) : v;
+        }
+
+        /*
+         * Check if a row passes all active filters
+         * Returns true if row should be shown, false if filtered out
+         */
+        function rowPassesFilters(row) {
+            // Global filter (searches across all filterable columns)
+            var gf = state.globalFilter.trim().toLowerCase();
+            if (gf) {
+                var hit = false;
+                for (var i = 0; i < columns.length; i++) {
+                    var c = columns[i];
+                    if (!c.filter) continue;
+                    if (c.special === 'clientSite') {
+                        var t1 = String(row.clientRaw || '').toLowerCase();
+                        var t2 = String(row.site || '').toLowerCase();
+                        if (t1.indexOf(gf) > -1 || t2.indexOf(gf) > -1) {
+                            hit = true;
+                            break;
+                        }
+                    } else {
+                        var t = String(valueFor(row, c) || '').toLowerCase();
+                        if (t.indexOf(gf) > -1) {
+                            hit = true;
+                            break;
+                        }
+                    }
+                }
+                if (!hit) return false;
+            }
+
+            // Per-column filters
+            for (var j = 0; j < columns.length; j++) {
+                var c = columns[j];
+                if (!c.filter) continue;
+
+                // Range filter (for numeric columns)
+                if (c.range) {
+                    var r = state.range[c.id] || {};
+                    var num = row[c.id + 'Num'] || parseFloat(row[c.id]);
+                    if (r.min != null && (num == null || num < r.min)) return false;
+                    if (r.max != null && (num == null || num > r.max)) return false;
+                    continue;
+                }
+
+                // Special clientSite dual filter
+                if (c.special === 'clientSite') {
+                    var s = state.clientSite;
+                    var cellClient = String(row.clientRaw || '');
+                    var cellSite = String(row.site || '');
+                    if (s.selClient.length > 0) {
+                        if (s.selClient.indexOf(cellClient) === -1) return false;
+                    } else if (s.textClient) {
+                        if (cellClient.toLowerCase().indexOf(s.textClient.toLowerCase()) === -1) return false;
+                    }
+                    if (s.selSite.length > 0) {
+                        if (s.selSite.indexOf(cellSite) === -1) return false;
+                    } else if (s.textSite) {
+                        if (cellSite.toLowerCase().indexOf(s.textSite.toLowerCase()) === -1) return false;
+                    }
+                    continue;
+                }
+
+                // Standard text/multi-select filter
+                var sv = state.columnSelect[c.id] || [];
+                var tv = (state.columnText[c.id] || '').toLowerCase();
+                var cell = String(valueFor(row, c) || '');
+                if (sv.length > 0) {
+                    if (sv.indexOf(cell) === -1) return false;
+                } else if (tv) {
+                    if (cell.toLowerCase().indexOf(tv) === -1) return false;
+                }
+            }
+
+            return true;
+        }
+
+        /*
+         * Get filtered and sorted data
+         * Returns array of rows that pass filters, sorted by current sort column
+         */
+        function getFilteredSortedData() {
+            var rows = data.filter(rowPassesFilters);
+            if (state.sorting.id) {
+                var col = columns.find(function(c) { return c.id === state.sorting.id; });
+                if (col) {
+                    rows = rows.slice().sort(function(a, b) {
+                        var av, bv;
+                        if (col.numeric) {
+                            av = a[col.id + 'Num'] != null ? a[col.id + 'Num'] : parseFloat(a[col.id]);
+                            bv = b[col.id + 'Num'] != null ? b[col.id + 'Num'] : parseFloat(b[col.id]);
+                            var sa = (isFinite(av) ? av : Number.POSITIVE_INFINITY);
+                            var sb = (isFinite(bv) ? bv : Number.POSITIVE_INFINITY);
+                            var d = sa - sb;
+                            return state.sorting.desc ? -d : d;
+                        } else {
+                            av = valueFor(a, col);
+                            bv = valueFor(b, col);
+                            var d2 = compare(av, bv);
+                            return state.sorting.desc ? -d2 : d2;
+                        }
+                    });
+                }
+            }
+            return rows;
+        }
+
+        /*
+         * Get unique values for a column (for popover picker)
+         * Returns sorted array of {v: value, c: count} objects
+         */
+        function uniqueValues(colId, list) {
+            var col = columns.find(function(c) { return c.id === colId; });
+            var m = new Map();
+            for (var i = 0; i < list.length; i++) {
+                var val = String(valueFor(list[i], col) || 'N/A');
+                m.set(val, (m.get(val) || 0) + 1);
+            }
+            var arr = Array.from(m.entries()).map(function(x) {
+                return { v: x[0], c: x[1] };
+            });
+            arr.sort(function(a, b) {
+                return a.v.localeCompare(b.v, undefined, { numeric: true, sensitivity: 'base' });
+            });
+            return arr;
+        }
+
+        /*
+         * Get unique values for Client/Site special column
+         */
+        function uniqueValuesByKey(key, list) {
+            var m = new Map();
+            for (var i = 0; i < list.length; i++) {
+                var val = String((key === 'clientRaw' ? list[i].clientRaw : list[i].site) || 'N/A');
+                m.set(val, (m.get(val) || 0) + 1);
+            }
+            var arr = Array.from(m.entries()).map(function(x) {
+                return { v: x[0], c: x[1] };
+            });
+            arr.sort(function(a, b) {
+                return a.v.localeCompare(b.v, undefined, { numeric: true, sensitivity: 'base' });
+            });
+            return arr;
+        }
+
+        /*
+         * Get filtered rows excluding a specific column's filter
+         * Used to show available values in popover when other filters are active
+         */
+        function filteredRowsExcluding(colId, subKey) {
+            var saved = {
+                columnText: Object.assign({}, state.columnText),
+                columnSelect: JSON.parse(JSON.stringify(state.columnSelect)),
+                range: Object.assign({}, state.range),
+                clientSite: JSON.parse(JSON.stringify(state.clientSite))
+            };
+            if (colId === 'clientSiteHTML') {
+                if (subKey === 'client') {
+                    state.clientSite.selClient = [];
+                    state.clientSite.textClient = '';
+                }
+                if (subKey === 'site') {
+                    state.clientSite.selSite = [];
+                    state.clientSite.textSite = '';
+                }
+            } else {
+                state.columnSelect[colId] = [];
+                state.columnText[colId] = '';
+                delete state.range[colId];
+            }
+            var rows = data.filter(rowPassesFilters);
+            state.columnText = saved.columnText;
+            state.columnSelect = saved.columnSelect;
+            state.range = saved.range;
+            state.clientSite = saved.clientSite;
+            return rows;
+        }
+
+        // ============================================================
+        // UI BUILDERS
+        // ============================================================
+
+        /*
+         * Build table header with global search and column filters
+         * Creates two-row thead:
+         * - Row 1: Global search bar spanning all columns
+         * - Row 2: Column headers with individual filter controls
+         */
+        function buildHeader() {
+            var headEl = $('#tableHead');
+            if (!headEl) return;
+            headEl.innerHTML = '';
+
+            // Row 1: Global search
+            var trSearch = document.createElement('tr');
+            var thSearch = document.createElement('th');
+            thSearch.colSpan = columns.length;
+
+            var bar = document.createElement('div');
+            bar.className = 'headbar';
+
+            var title = document.createElement('div');
+            title.className = 'title';
+            title.textContent = 'Global Filter';
+
+            var sw = document.createElement('div');
+            sw.className = 'search-wrap';
+
+            var input = document.createElement('input');
+            input.id = 'globalSearch';
+            input.type = 'search';
+            input.className = 'search-input';
+            input.placeholder = 'Type to filter table';
+            input.setAttribute('aria-label', 'Search table');
+            input.value = state.globalFilter || '';
+
+            var icon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            icon.setAttribute('class', 'search-icon');
+            icon.setAttribute('viewBox', '0 0 24 24');
+            icon.setAttribute('aria-hidden', 'true');
+            icon.innerHTML = '<path d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 1 0-.71.71l.27.28v.79L20 21.5 21.5 20l-6-6zm-6 0A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14z"/>';
+
+            var clearBtn = document.createElement('button');
+            clearBtn.className = 'clear-filter-btn no-print';
+            clearBtn.innerHTML = '&times;';
+            clearBtn.setAttribute('aria-label', 'Clear search');
+
+            var toggleGlobalClear = function() {
+                clearBtn.style.display = input.value ? 'flex' : 'none';
+            };
+
+            input.addEventListener('input', debounce(function(e) {
+                state.globalFilter = e.target.value || '';
+                toggleGlobalClear();
+                renderBody();
+                updateCount();
+            }, 140));
+
+            clearBtn.addEventListener('click', function() {
+                input.value = '';
+                input.focus();
+                state.globalFilter = '';
+                toggleGlobalClear();
+                renderBody();
+                updateCount();
+            });
+
+            sw.appendChild(input);
+            sw.appendChild(icon);
+            sw.appendChild(clearBtn);
+            toggleGlobalClear();
+
+            bar.appendChild(title);
+            bar.appendChild(sw);
+            var spacer = document.createElement('div');
+            spacer.className = 'spacer';
+            bar.appendChild(spacer);
+
+            thSearch.appendChild(bar);
+            trSearch.appendChild(thSearch);
+
+            // Row 2: Column headers with filters
+            var trCols = document.createElement('tr');
+
+            columns.forEach(function(c) {
+                var th = document.createElement('th');
+                if (c.sortable) th.classList.add('sortable');
+
+                var wrap = document.createElement('div');
+                wrap.className = 'th-inner';
+
+                var t = document.createElement('div');
+                t.className = 'th-title';
+                t.textContent = c.title;
+
+                if (c.sortable) {
+                    var ind = document.createElement('span');
+                    ind.className = 'sort-ind';
+                    ind.textContent = state.sorting.id === c.id ? (state.sorting.desc ? '▼' : '▲') : '↕';
+                    t.appendChild(ind);
+                    t.addEventListener('click', function() {
+                        if (state.sorting.id !== c.id) {
+                            state.sorting.id = c.id;
+                            state.sorting.desc = false;
+                        } else if (state.sorting.id === c.id && state.sorting.desc === false) {
+                            state.sorting.desc = true;
+                        } else {
+                            state.sorting.id = null;
+                            state.sorting.desc = false;
+                        }
+                        buildHeader();
+                        renderBody();
+                        updateCount();
+                    });
+                }
+
+                wrap.appendChild(t);
+
+                // Add filter control based on column type
+                if (c.filter) {
+                    if (c.range) {
+                        // Range filter for numeric columns
+                        var fw = document.createElement('div');
+                        fw.className = 'filter-wrap';
+
+                        var min = document.createElement('input');
+                        min.className = 'filter-input no-print';
+                        min.placeholder = 'Min';
+
+                        var max = document.createElement('input');
+                        max.className = 'filter-input no-print';
+                        max.placeholder = 'Max';
+
+                        var clearRangeBtn = document.createElement('button');
+                        clearRangeBtn.className = 'clear-filter-btn no-print';
+                        clearRangeBtn.innerHTML = '&times;';
+                        clearRangeBtn.setAttribute('aria-label', 'Clear range filter for ' + c.title);
+
+                        var toggleRangeClear = function() {
+                            var hasValue = min.value.trim() !== '' || max.value.trim() !== '';
+                            clearRangeBtn.style.display = hasValue ? 'flex' : 'none';
+                        };
+
+                        var apply = function() {
+                            var vmin = min.value.trim() === '' ? null : parseFloat(min.value);
+                            var vmax = max.value.trim() === '' ? null : parseFloat(max.value);
+                            state.range[c.id] = { min: vmin, max: vmax };
+                            toggleRangeClear();
+                            renderBody();
+                            updateCount();
+                        };
+
+                        clearRangeBtn.addEventListener('click', function() {
+                            min.value = '';
+                            max.value = '';
+                            apply();
+                        });
+
+                        min.addEventListener('input', debounce(apply, 250));
+                        max.addEventListener('input', debounce(apply, 250));
+
+                        var r = state.range[c.id] || {};
+                        if (r.min != null) min.value = r.min;
+                        if (r.max != null) max.value = r.max;
+
+                        fw.appendChild(min);
+                        fw.appendChild(max);
+                        fw.appendChild(clearRangeBtn);
+                        wrap.appendChild(fw);
+                        toggleRangeClear();
+                    } else if (c.special === 'clientSite') {
+                        // Dual filter for Client/Site
+                        wrap.appendChild(buildCombo({
+                            title: 'Client',
+                            placeholder: 'Search client',
+                            getText: function() { return state.clientSite.textClient || ''; },
+                            setText: function(v) {
+                                state.clientSite.textClient = v || '';
+                                if (!(state.clientSite.selClient || []).length) {
+                                    renderBody();
+                                    updateCount();
+                                }
+                            },
+                            getCount: function() { return (state.clientSite.selClient || []).length; },
+                            open: function(btn) { togglePopoverDual('client', btn); },
+                            clear: function() {
+                                state.clientSite.textClient = '';
+                                state.clientSite.selClient = [];
+                            }
+                        }));
+                        wrap.appendChild(buildCombo({
+                            title: 'Site',
+                            placeholder: 'Search site',
+                            getText: function() { return state.clientSite.textSite || ''; },
+                            setText: function(v) {
+                                state.clientSite.textSite = v || '';
+                                if (!(state.clientSite.selSite || []).length) {
+                                    renderBody();
+                                    updateCount();
+                                }
+                            },
+                            getCount: function() { return (state.clientSite.selSite || []).length; },
+                            open: function(btn) { togglePopoverDual('site', btn); },
+                            clear: function() {
+                                state.clientSite.textSite = '';
+                                state.clientSite.selSite = [];
+                            }
+                        }));
+                    } else {
+                        // Standard combo filter (text + multi-select)
+                        wrap.appendChild(buildCombo({
+                            title: c.title,
+                            placeholder: 'Search',
+                            getText: function() { return state.columnText[c.id] || ''; },
+                            setText: function(v) {
+                                state.columnText[c.id] = v || '';
+                                if (!(state.columnSelect[c.id] || []).length) {
+                                    renderBody();
+                                    updateCount();
+                                }
+                            },
+                            getCount: function() { return (state.columnSelect[c.id] || []).length; },
+                            open: function(btn) { togglePopover(c.id, btn); },
+                            clear: function() {
+                                state.columnText[c.id] = '';
+                                state.columnSelect[c.id] = [];
+                            }
+                        }));
+                    }
+                }
+
+                th.appendChild(wrap);
+                trCols.appendChild(th);
+            });
+
+            headEl.appendChild(trSearch);
+            headEl.appendChild(trCols);
+        }
+
+        /*
+         * Build a combo box filter control
+         * opts = { title, placeholder, getText, setText, getCount, open, clear }
+         */
+        function buildCombo(opts) {
+            var box = document.createElement('div');
+            box.className = 'combo no-print';
+
+            var input = document.createElement('input');
+            input.className = 'combo-input';
+            input.placeholder = opts.placeholder || 'Search';
+            input.value = opts.getText();
+
+            var right = document.createElement('div');
+            right.className = 'combo-right';
+
+            var badge = document.createElement('span');
+            badge.className = 'badge';
+            var count = opts.getCount();
+            badge.textContent = count > 0 ? String(count) + ' selected' : 'Pick';
+            if (count === 0) badge.style.display = 'none';
+
+            var btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'combo-btn';
+            btn.setAttribute('aria-label', 'Pick values');
+            btn.innerHTML = '<svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>';
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                opts.open(btn);
+            });
+
+            var clearBtn = document.createElement('button');
+            clearBtn.className = 'clear-filter-btn';
+            clearBtn.innerHTML = '&times;';
+            clearBtn.setAttribute('aria-label', 'Clear filter for ' + opts.title);
+
+            var toggleClearBtn = function() {
+                var hasText = input.value.trim() !== '';
+                var hasSelection = opts.getCount() > 0;
+                clearBtn.style.display = (hasText || hasSelection) ? 'flex' : 'none';
+            };
+
+            clearBtn.addEventListener('click', function() {
+                input.value = '';
+                opts.clear();
+                box._updateBadge(0);
+                renderBody();
+                updateCount();
+            });
+
+            input.addEventListener('input', debounce(function(e) {
+                opts.setText(e.target.value || '');
+                toggleClearBtn();
+            }, 120));
+
+            box._updateBadge = function(n) {
+                if (n > 0) {
+                    badge.style.display = 'inline-block';
+                    badge.textContent = n + ' selected';
+                } else {
+                    badge.style.display = 'none';
+                }
+                toggleClearBtn();
+            };
+
+            right.appendChild(badge);
+            right.appendChild(btn);
+            box.appendChild(input);
+            box.appendChild(clearBtn);
+            box.appendChild(right);
+            toggleClearBtn();
+            return box;
+        }
+
+        // ============================================================
+        // POPOVER HANDLERS
+        // ============================================================
+
+        /*
+         * Position popover below anchor button, keeping it in viewport
+         */
+        function placePopoverUnder(anchorBtn, pop) {
+            var rect = anchorBtn.getBoundingClientRect();
+            var left = rect.left;
+            var top = rect.bottom + 6;
+
+            document.body.appendChild(pop);
+            var pw = pop.offsetWidth,
+                ph = pop.offsetHeight;
+
+            if (left + pw > window.innerWidth - 8) {
+                left = Math.max(8, window.innerWidth - pw - 8);
+            }
+            if (top + ph > window.innerHeight - 8) {
+                var altTop = rect.top - ph - 6;
+                top = (altTop >= 8) ? altTop : Math.max(8, window.innerHeight - ph - 8);
+            }
+
+            pop.style.left = left + 'px';
+            pop.style.top = top + 'px';
+        }
+
+        /*
+         * Toggle popover for Client/Site dual filter
+         */
+        function togglePopoverDual(kind, anchorBtn) {
+            closePopover();
+            anchorBtn.classList.add('active');
+
+            var pop = document.createElement('div');
+            pop.className = 'popover no-print';
+            var list = document.createElement('div');
+            pop.appendChild(list);
+            var baseRows = filteredRowsExcluding('clientSiteHTML', kind);
+
+            function renderList() {
+                list.innerHTML = '';
+                var items = uniqueValuesByKey(kind === 'client' ? 'clientRaw' : 'site', baseRows);
+                var selArr = (kind === 'client' ? (state.clientSite.selClient || []) : (state.clientSite.selSite || []));
+
+                items.forEach(function(it) {
+                    var row = document.createElement('div');
+                    row.className = 'opt';
+                    var cb = document.createElement('input');
+                    cb.type = 'checkbox';
+                    cb.value = it.v;
+                    cb.checked = selArr.indexOf(it.v) > -1;
+                    var lab = document.createElement('label');
+                    lab.textContent = it.v + ' (' + it.c + ')';
+
+                    cb.addEventListener('change', function(e) {
+                        var arr = (kind === 'client' ? state.clientSite.selClient : state.clientSite.selSite);
+                        var v = e.target.value;
+                        if (e.target.checked) {
+                            if (arr.indexOf(v) === -1) arr.push(v);
+                        } else {
+                            var idx = arr.indexOf(v);
+                            if (idx > -1) arr.splice(idx, 1);
+                        }
+
+                        renderBody();
+                        updateCount();
+                        var combo = anchorBtn.closest('.combo');
+                        if (combo && combo._updateBadge) combo._updateBadge(arr.length);
+                    });
+
+                    row.appendChild(cb);
+                    row.appendChild(lab);
+                    list.appendChild(row);
+                });
+            }
+            renderList();
+
+            placePopoverUnder(anchorBtn, pop);
+
+            function closeOnOutside(e) {
+                if (!pop.contains(e.target) && e.target !== anchorBtn) {
+                    closePopover();
+                }
+            }
+            document.addEventListener('mousedown', closeOnOutside);
+            pop._closeHandler = closeOnOutside;
+            pop._anchor = anchorBtn;
+            state._popoverEl = pop;
+        }
+
+        /*
+         * Toggle popover for standard column filter
+         */
+        function togglePopover(colId, anchorBtn) {
+            closePopover();
+            anchorBtn.classList.add('active');
+
+            var pop = document.createElement('div');
+            pop.className = 'popover no-print';
+            var list = document.createElement('div');
+            pop.appendChild(list);
+            var baseRows = filteredRowsExcluding(colId);
+
+            function renderList() {
+                list.innerHTML = '';
+                var items = uniqueValues(colId, baseRows);
+                var selArr = (state.columnSelect[colId] || []);
+
+                items.forEach(function(it) {
+                    var row = document.createElement('div');
+                    row.className = 'opt';
+                    var cb = document.createElement('input');
+                    cb.type = 'checkbox';
+                    cb.value = it.v;
+                    cb.checked = selArr.indexOf(it.v) > -1;
+                    var lab = document.createElement('label');
+                    lab.textContent = it.v + ' (' + it.c + ')';
+
+                    cb.addEventListener('change', function(e) {
+                        var cur = state.columnSelect[colId] || [];
+                        var v = e.target.value;
+                        if (e.target.checked) {
+                            if (cur.indexOf(v) === -1) cur.push(v);
+                        } else {
+                            var idx = cur.indexOf(v);
+                            if (idx > -1) cur.splice(idx, 1);
+                        }
+                        state.columnSelect[colId] = cur;
+
+                        renderBody();
+                        updateCount();
+                        var combo = anchorBtn.closest('.combo');
+                        if (combo && combo._updateBadge) combo._updateBadge(cur.length);
+                    });
+
+                    row.appendChild(cb);
+                    row.appendChild(lab);
+                    list.appendChild(row);
+                });
+            }
+            renderList();
+
+            placePopoverUnder(anchorBtn, pop);
+
+            function closeOnOutside(e) {
+                if (!pop.contains(e.target) && e.target !== anchorBtn) {
+                    closePopover();
+                }
+            }
+            document.addEventListener('mousedown', closeOnOutside);
+            pop._closeHandler = closeOnOutside;
+            pop._anchor = anchorBtn;
+            state._popoverEl = pop;
+        }
+
+        /*
+         * Close any open popover
+         */
+        function closePopover() {
+            var pop = state._popoverEl;
+            if (pop) {
+                document.removeEventListener('mousedown', pop._closeHandler || function() {});
+                if (pop._anchor) pop._anchor.classList.remove('active');
+                pop.remove();
+                state._popoverEl = null;
+            }
+        }
+
+        // ============================================================
+        // RENDERING FUNCTIONS
+        // ============================================================
+
+        /*
+         * Render table body from filtered and sorted data
+         */
+        function renderBody() {
+            var bodyEl = $('#tableBody');
+            if (!bodyEl) return;
+            bodyEl.innerHTML = '';
+            var rows = getFilteredSortedData();
+            for (var i = 0; i < rows.length; i++) {
+                var r = rows[i];
+                var tr = document.createElement('tr');
+                for (var c = 0; c < columns.length; c++) {
+                    var col = columns[c];
+                    var td = document.createElement('td');
+                    var val = r[col.id];
+                    if (col.html) {
+                        td.appendChild(htmlNode(val));
+                    } else {
+                        td.textContent = val != null ? val : '';
+                    }
+                    tr.appendChild(td);
+                }
+                bodyEl.appendChild(tr);
+            }
+        }
+
+        /*
+         * Update row counter (if elements exist)
+         */
+        function updateCount() {
+            var visibleEl = $('#visibleCount');
+            var totalEl = $('#totalCount');
+            if (visibleEl) {
+                visibleEl.textContent = String(getFilteredSortedData().length);
+            }
+            if (totalEl && typeof data !== 'undefined') {
+                totalEl.textContent = String(data.length);
+            }
+        }
+
+        /*
+         * INITIALIZATION TEMPLATE:
+         *
+         * Reports should include code like this after defining columns and loading data:
+         *
+         * // Preprocess data if needed (e.g., parse numbers, strip HTML)
+         * for (var i = 0; i < data.length; i++) {
+         *     // Extract numeric values for range filtering
+         *     var m = String(data[i].ram || '').match(/\d+/);
+         *     data[i].ramNum = m ? parseFloat(m[0]) : null;
+         *     // Strip HTML for text filtering
+         *     data[i].fieldText = stripHtml(data[i].fieldHTML);
+         * }
+         *
+         * // Build UI and render
+         * buildHeader();
+         * renderBody();
+         * updateCount();
+         *
+         * // Show table (hide loading indicator)
+         * $('#loading').style.display = 'none';
+         * $('#tableWrap').style.display = 'block';
+         */
+    </script>
+</head>
+
+<body>
+    <div class="report-header">
+        <div class="header-logo">
+            <img src="https://github.com/amidaware/reporting-templates/blob/master/assets/gbtnavy%20(256).png?raw=true"
+                 alt="Logo" style="width: 80px; height: auto;">
+        </div>
+        <div class="header-titles">
+            {% block header_title %}{% endblock %}
+        </div>
+        <div class="header-date">
+            <h2>Report Date:<br>{{ report_run_timestamp.strftime('%B %d, %Y') }}</h2>
+        </div>
+        <div class="print-controls no-print">
+            <button onclick="window.print()" class="print-button">🖨️ Print</button>
+        </div>
+    </div>
+    {% block content %}{% endblock %}
+    <div class="report-footer">
+        {% block footer %}{% endblock %}
+    </div>
+</body>
+
+</html>
